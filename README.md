@@ -1,2 +1,2 @@
-# HWLane
-lane detection
+# HWLane: HW-Transformer for Lane Detection
+Coming soon.
