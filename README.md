@@ -6,12 +6,6 @@ PyTorch implementation of the paper "[HWLane: HW-Transformer for Lane Detection]
 
 https://user-images.githubusercontent.com/39958763/219874997-f66e5f79-4206-43b3-a44e-7647999fec58.mp4
 
-## VILane demo
-
-
-https://user-images.githubusercontent.com/39958763/219875157-1a69d7dc-876a-450b-bc6d-c5aaf97cbbb5.mp4
-
-
 
 ## Introduction
 ![intro](arch.png "intro")
