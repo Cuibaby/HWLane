@@ -1,0 +1,286 @@
+2023-02-18 21:25:57,177 - runner.recorder - INFO - Config: 
+/home/qiuzengyu/project/HWLane/configs/culane.py
+net = dict(
+    type='HWLane', 
+)
+
+backbone = dict(
+    type='ResNetWrapper',
+    resnet='resnet34',
+    pretrained=True,
+    replace_stride_with_dilation=[False, True, True],
+    out_conv=True,
+    fea_stride=8,
+  #  in_channels=[64, 128, 256, -1],
+)
+
+mfia = dict(
+    type='MFIA',
+    alpha=2.0,
+    iter=2,
+    input_channel=128,
+    conv_stride=9,
+)
+
+decoder = 'PlainDecoder'        
+
+trainer = dict(
+    type='Lane'
+)
+
+evaluator = dict(
+    type='CULane',        
+)
+
+optimizer = dict(
+  type='AdamW',
+  lr=0.0015,
+  weight_decay=0.03,
+  betas = (0.9, 0.999)
+)
+
+epochs = 16
+batch_size = 16
+total_iter = (88880 // batch_size) * epochs
+import math
+scheduler = dict(
+    type = 'LambdaLR',
+    lr_lambda = lambda _iter : math.pow(1 - _iter/total_iter, 0.9)
+)
+
+loss_type = 'cross_entropy'
+seg_loss_weight = 2.4
+eval_ep = 4
+save_ep = 4
+
+bg_weight = 0.3
+
+img_norm = dict(
+    mean=[103.939, 116.779, 123.68],
+    std=[1., 1., 1.]
+)
+
+img_height = 288
+img_width = 800
+cut_height = 240 
+depth = 4
+depth1 = 2
+depth2 = 5
+dataset_path = './data/CULane'
+dataset = dict(
+    train=dict(
+        type='CULane',
+        img_path=dataset_path,
+        data_list='train_gt.txt',
+    ),
+    val=dict(
+        type='CULane',
+        img_path=dataset_path,
+        data_list='test.txt',
+    ),
+    test=dict(
+        type='CULane',
+        img_path=dataset_path,
+        data_list='test.txt',
+    )
+)
+
+
+workers = 12
+num_classes = 4 + 1
+ignore_label = 255
+log_interval = 500
+
+
+2023-02-18 21:26:06,603 - runner.recorder - INFO - the model parameter is : 18.602441M
+2023-02-18 21:26:12,551 - runner.recorder - INFO - Network: 
+DataParallel(
+  (module): HWLane(
+    (backbone): Sequential(
+      (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+      (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (5): ReLU(inplace=True)
+      (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+      (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (9): ReLU(inplace=True)
+      (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (12): ReLU(inplace=True)
+      (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+      (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (16): ReLU(inplace=True)
+      (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (19): ReLU(inplace=True)
+      (20): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (21): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (22): ReLU(inplace=True)
+      (23): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+      (24): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (25): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (26): ReLU(inplace=True)
+      (27): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (28): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (29): ReLU(inplace=True)
+      (30): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (31): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (32): ReLU(inplace=True)
+      (34): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+      (35): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (36): ReLU(inplace=True)
+      (37): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+      (38): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (39): ReLU(inplace=True)
+      (40): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+      (41): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (42): ReLU(inplace=True)
+    )
+    (layer1): Sequential(
+      (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4), bias=False)
+      (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+      (3): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (5): ReLU()
+    )
+    (blocks): ModuleList(
+      (0): GroupBlock(
+        (attnh): HAttention(
+          (qkv): Linear(in_features=128, out_features=384, bias=False)
+          (attn_drop): Dropout(p=0.1, inplace=False)
+          (proj_drop): Dropout(p=0.1, inplace=False)
+        )
+        (attnw): WAttention(
+          (qkv): Linear(in_features=128, out_features=384, bias=False)
+          (attn_drop): Dropout(p=0.1, inplace=False)
+          (proj_drop): Dropout(p=0.1, inplace=False)
+        )
+        (mlp1): Conv1x1(
+          (conv1): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (conv2): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (bn2): BatchNorm2d(128, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (mlp2): Conv1x1(
+          (conv1): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (conv2): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (bn2): BatchNorm2d(128, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (relu): ReLU()
+      )
+      (1): GroupBlock(
+        (attnh): HAttention(
+          (qkv): Linear(in_features=128, out_features=384, bias=False)
+          (attn_drop): Dropout(p=0.1, inplace=False)
+          (proj_drop): Dropout(p=0.1, inplace=False)
+        )
+        (attnw): WAttention(
+          (qkv): Linear(in_features=128, out_features=384, bias=False)
+          (attn_drop): Dropout(p=0.1, inplace=False)
+          (proj_drop): Dropout(p=0.1, inplace=False)
+        )
+        (mlp1): Conv1x1(
+          (conv1): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (conv2): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (bn2): BatchNorm2d(128, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (mlp2): Conv1x1(
+          (conv1): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (conv2): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (bn2): BatchNorm2d(128, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (relu): ReLU()
+      )
+      (2): GroupBlock(
+        (attnh): HAttention(
+          (qkv): Linear(in_features=128, out_features=384, bias=False)
+          (attn_drop): Dropout(p=0.1, inplace=False)
+          (proj_drop): Dropout(p=0.1, inplace=False)
+        )
+        (attnw): WAttention(
+          (qkv): Linear(in_features=128, out_features=384, bias=False)
+          (attn_drop): Dropout(p=0.1, inplace=False)
+          (proj_drop): Dropout(p=0.1, inplace=False)
+        )
+        (mlp1): Conv1x1(
+          (conv1): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (conv2): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (bn2): BatchNorm2d(128, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (mlp2): Conv1x1(
+          (conv1): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (conv2): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (bn2): BatchNorm2d(128, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (relu): ReLU()
+      )
+      (3): GroupBlock(
+        (attnh): HAttention(
+          (qkv): Linear(in_features=128, out_features=384, bias=False)
+          (attn_drop): Dropout(p=0.1, inplace=False)
+          (proj_drop): Dropout(p=0.1, inplace=False)
+        )
+        (attnw): WAttention(
+          (qkv): Linear(in_features=128, out_features=384, bias=False)
+          (attn_drop): Dropout(p=0.1, inplace=False)
+          (proj_drop): Dropout(p=0.1, inplace=False)
+        )
+        (mlp1): Conv1x1(
+          (conv1): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (conv2): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (bn2): BatchNorm2d(128, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (mlp2): Conv1x1(
+          (conv1): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (conv2): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (bn2): BatchNorm2d(128, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (relu): ReLU()
+      )
+    )
+    (decoder): PlainDecoder(
+      (dropout): Dropout2d(p=0.1, inplace=False)
+      (conv8): Conv2d(128, 5, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (heads): ExistHead(
+      (dropout): Dropout2d(p=0.1, inplace=False)
+      (fc): Linear(in_features=128, out_features=4, bias=True)
+    )
+    (global_avg_pool): Sequential(
+      (0): AdaptiveAvgPool2d(output_size=(1, 1))
+    )
+  )
+)
+2023-02-18 22:08:06,133 - runner.evaluator.culane.culane - INFO - summarize result...
+2023-02-18 22:14:00,037 - runner.evaluator.culane.culane - INFO - normal: {'tp': '30352', 'fp': '2172', 'fn': '2425\n', 'precision': '0.933219\n', 'recall': '0.926015\n', 'Fmeasure': '0.929603\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - crowd: {'tp': '20572', 'fp': '6157', 'fn': '7431\n', 'precision': '0.769651\n', 'recall': '0.734636\n', 'Fmeasure': '0.751736\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - night: {'tp': '14650', 'fp': '4956', 'fn': '6380\n', 'precision': '0.74722\n', 'recall': '0.696624\n', 'Fmeasure': '0.721036\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - noline: {'tp': '6608', 'fp': '5313', 'fn': '7413\n', 'precision': '0.554316\n', 'recall': '0.471293\n', 'Fmeasure': '0.509444\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - shadow: {'tp': '2250', 'fp': '609', 'fn': '626\n', 'precision': '0.786988\n', 'recall': '0.782337\n', 'Fmeasure': '0.784656\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - arrow: {'tp': '2788', 'fp': '266', 'fn': '394\n', 'precision': '0.912901\n', 'recall': '0.876179\n', 'Fmeasure': '0.894163\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - hlight: {'tp': '1136', 'fp': '500', 'fn': '549\n', 'precision': '0.694377\n', 'recall': '0.674184\n', 'Fmeasure': '0.684131\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - curve: {'tp': '833', 'fp': '228', 'fn': '479\n', 'precision': '0.785108\n', 'recall': '0.634909\n', 'Fmeasure': '0.702065\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - cross: {'tp': '0', 'fp': '1703', 'fn': '0\n', 'precision': '0\n', 'recall': '-1\n', 'Fmeasure': '0\n'}
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - Overall Precision: 0.783328 Recall: 0.755001 F1: 0.768904
+2023-02-18 22:14:00,038 - runner.evaluator.culane.culane - INFO - Copypaste: normal 30352 2172 2425 0.933219 0.926015 0.929603 crowd 20572 6157 7431 0.769651 0.734636 0.751736 night 14650 4956 6380 0.74722 0.696624 0.721036 noline 6608 5313 7413 0.554316 0.471293 0.509444 shadow 2250 609 626 0.786988 0.782337 0.784656 arrow 2788 266 394 0.912901 0.876179 0.894163 hlight 1136 500 549 0.694377 0.674184 0.684131 curve 833 228 479 0.785108 0.634909 0.702065 cross 0 1703 0 0 -1 0 Overall Precision: 0.783328 Recall: 0.755001 F1: 0.768904
+2023-02-18 22:14:01,413 - runner.recorder - INFO - Best metric: 0.7689036255979682

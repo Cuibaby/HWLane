@@ -1,16 +1,9 @@
-# MFIALane
-PyTorch implementation of the paper "[HWLane: HW-Transformer for Lane Detection]". 
-
-## Introduction
-![intro](./log/arch.png "intro")
-- MFIALane achieves SOTA results on VIL-100, CULane, and Tusimple Dataset.
-
 ## Get started
-1. Clone the HWLane repository
+1. Clone the MFIALane repository
     ```
-    git clone https://github.com/Cuibaby/HWLane.git
+    git clone https://github.com/Cuibaby/MFIALane.git
     ```
-    We call this directory as `$HWLane_ROOT`
+    We call this directory as `$MFIALane_ROOT`
 
 2. Create a conda virtual environment and activate it (conda is optional)
 
@@ -121,40 +114,3 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4 python main.py configs/tusimple.py --validate --l
 
 CUDA_VISIBLE_DEVICES=0,1,2,3,4 python main.py configs/vilane.py --validate --load_from vilane.pth --gpus 0 1 2 3
 ```
-
-
-We provide three trained ResNet models on VIL100, CULane and Tusimple.
-
-|  Dataset | Backbone| Metric paper | Metric This repo |    Model    |
-|:--------:|:------------:|:------------:|:----------------:|:-------------------:|
-| VIL100 |  ResNet34 |   91.9    |       91.9         | [GoogleDrive](https://drive.google.com/file/d/1KFBMxsneDjFkmCIwdI3iEVZdutEZiUfu/view?usp=sharing)/[BaiduDrive(code:bghd)](https://pan.baidu.com/s/1rPC_irYqccWvV0lCefXvTw?pwd=1111) |
-| Tusimple |  ResNet18 | 96.83    |       96.83      |   [GoogleDrive](https://drive.google.com/file/d/1vulUJP8sJ1oNZUAScyB6dqdjBrGnKivh/view?usp=sharing)/[BaiduDrive(code:bghd)](https://pan.baidu.com/s/1iGTfIZnyCaNn5Y9p_WMb8g?pwd=1111) |
-|  CULane  |  ResNet34 |   76.9    |       76.9       |    [GoogleDrive](https://drive.google.com/file/d/1zXBRTw50WOzvUp6XKsi8Zrk3MUC3uFuq/view?usp=sharing)/[BaiduDrive(code:w9tw)](https://pan.baidu.com/s/19Ig0TrV8MfmFTyCvbSa4ag) |
-
-## Visualization
-Just add `--view`.
-
-For example:
-```Shell
-python main.py configs/culane.py --validate --load_from culane_resnet50.pth --gpus 0 1 2 3 --view
-```
-You will get the result in the directory: `work_dirs/[DATASET]/xxx/vis`.
-
-## Citation
-
-```BibTeX
-@ARTICLE{9872124,  
-author={Qiu, Zengyu and Zhao, Jing and Sun, Shiliang},  
-journal={IEEE Transactions on Intelligent Transportation Systems},   
-title={HWLane: HW-Transformer for Lane Detection},   
-year={2023},  
-volume={},  
-number={},  
-pages={1-13},  
-doi={10.1109/TITS.2022.3195742}
-}
-```
-
-## Thanks
-
-The code is modified from [RESA](https://github.com/zjulearning/resa.git) and [SCNN](https://github.com/XingangPan/SCNN), [Tusimple Benchmark](https://github.com/TuSimple/tusimple-benchmark). It's also recommended for you to try  [LaneDet](https://github.com/Turoad/lanedet). 
