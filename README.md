@@ -21,8 +21,8 @@ https://user-images.githubusercontent.com/39958763/219874997-f66e5f79-4206-43b3-
 2. Create a conda virtual environment and activate it (conda is optional)
 
     ```Shell
-    conda create -n MFIALane python=3.8 -y
-    conda activate MFIALane
+    conda create -n HWLane python=3.8 -y
+    conda activate HWLane
     ```
 
 3. Install dependencies
@@ -45,7 +45,7 @@ https://user-images.githubusercontent.com/39958763/219874997-f66e5f79-4206-43b3-
     ```Shell
     cd $MFIALane_ROOT
     mkdir -p data
-    ln -s $VIL-100ROOT data/VIL100
+    ln -s $VIL100ROOT data/VIL100
     ln -s $CULANEROOT data/CULane
     ln -s $TUSIMPLEROOT data/tusimple
     ```
@@ -90,7 +90,7 @@ https://user-images.githubusercontent.com/39958763/219874997-f66e5f79-4206-43b3-
     
     Then compile the evaluation tool of CULane.
     ```Shell
-    cd $MFIALane_ROOT/runner/evaluator/culane/lane_evaluation
+    cd $HWLane_ROOT/runner/evaluator/culane/lane_evaluation
     make
     cd -
     ```
