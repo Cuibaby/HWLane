@@ -127,9 +127,9 @@ We provide three trained ResNet models on VIL100, CULane and Tusimple.
 
 |  Dataset | Backbone| Metric paper | Metric This repo |    Model    |
 |:--------:|:------------:|:------------:|:----------------:|:-------------------:|
-| VIL100 |  ResNet34 |   91.9    |       91.9         |  |
-| Tusimple |  ResNet18 | 96.83    |       96.83      |   |
-|  CULane  |  ResNet34 |   76.9    |       76.9       |    |
+| VIL100 |  ResNet34 |   91.9    |       91.9         | Comming Soon |
+| Tusimple |  ResNet18 | 96.83    |       96.83      |   Comming Soon |
+|  CULane  |  ResNet34 |   76.9    |       76.9       |   Comming Soon  |
 
 ## Visualization
 Just add `--view`.
