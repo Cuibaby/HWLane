@@ -129,7 +129,7 @@ We provide three trained ResNet/VGG models on VIL100, CULane and Tusimple.
 |:--------:|:------------:|:------------:|:----------------:|:-------------------:|
 | VIL100 |  ResNet34 |   91.9    |       91.9         | Comming Soon |
 | Tusimple |  ResNet18 | 96.83    |       96.83      |   Comming Soon |
-|  CULane  |  VGG19 |   76.9    |       76.9       |   Comming Soon  |
+|  CULane  |  VGG16 |   76.9    |       76.9       |   Comming Soon  |
 
 ## Visualization
 Just add `--view`.
