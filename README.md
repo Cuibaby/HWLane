@@ -1,6 +1,18 @@
 # MFIALane
 PyTorch implementation of the paper "[HWLane: HW-Transformer for Lane Detection]". 
 
+## CULane demo
+
+
+https://user-images.githubusercontent.com/39958763/219874997-f66e5f79-4206-43b3-a44e-7647999fec58.mp4
+
+## VILane demo
+
+
+https://user-images.githubusercontent.com/39958763/219875157-1a69d7dc-876a-450b-bc6d-c5aaf97cbbb5.mp4
+
+
+
 ## Introduction
 ![intro](arch.png "intro")
 - HWLane achieves SOTA results on VIL-100, CULane, and Tusimple Dataset.
@@ -150,8 +162,8 @@ title={HWLane: HW-Transformer for Lane Detection},
 year={2023},  
 volume={},  
 number={},  
-pages={1-13},  
-doi={10.1109/TITS.2022.3195742}
+pages={},  
+doi={}
 }
 ```
 
