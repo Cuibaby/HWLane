@@ -123,13 +123,13 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4 python main.py configs/vilane.py --validate --loa
 ```
 
 
-We provide three trained ResNet models on VIL100, CULane and Tusimple.
+We provide three trained ResNet/VGG models on VIL100, CULane and Tusimple.
 
 |  Dataset | Backbone| Metric paper | Metric This repo |    Model    |
 |:--------:|:------------:|:------------:|:----------------:|:-------------------:|
 | VIL100 |  ResNet34 |   91.9    |       91.9         | Comming Soon |
 | Tusimple |  ResNet18 | 96.83    |       96.83      |   Comming Soon |
-|  CULane  |  ResNet34 |   76.9    |       76.9       |   Comming Soon  |
+|  CULane  |  VGG19 |   76.9    |       76.9       |   Comming Soon  |
 
 ## Visualization
 Just add `--view`.
