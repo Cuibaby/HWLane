@@ -1,4 +1,4 @@
-# MFIALane
+# HWLane
 PyTorch implementation of the paper "[HWLane: HW-Transformer for Lane Detection]". 
 
 ## CULane demo
@@ -142,7 +142,7 @@ Just add `--view`.
 
 For example:
 ```Shell
-python main.py configs/culane.py --validate --load_from culane_resnet50.pth --gpus 0 1 2 3 --view
+python main.py configs/culane.py --validate --load_from culane.pth --gpus 0 1 2 3 --view
 ```
 You will get the result in the directory: `work_dirs/[DATASET]/xxx/vis`.
 
@@ -158,6 +158,17 @@ volume={},
 number={},  
 pages={},  
 doi={}
+}
+
+@ARTICLE{9872124,  
+author={Qiu, Zengyu and Zhao, Jing and Sun, Shiliang},  
+journal={IEEE Transactions on Intelligent Transportation Systems},   
+title={MFIALane: Multiscale Feature Information Aggregator Network for Lane Detection},   
+year={2022},  
+volume={},  
+number={},  
+pages={1-13},  
+doi={10.1109/TITS.2022.3195742}
 }
 ```
 
