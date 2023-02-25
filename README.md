@@ -10,8 +10,6 @@ https://user-images.githubusercontent.com/39958763/219874997-f66e5f79-4206-43b3-
 
 https://user-images.githubusercontent.com/39958763/221346857-9650ad8f-2c6c-437c-b88f-196d51438dab.mp4
 
-https://user-images.githubusercontent.com/39958763/221346877-94b71961-7104-4258-91d5-899acf8b3cb0.mp4
-
 
 ## Introduction
 
